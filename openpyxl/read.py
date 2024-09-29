@@ -1,11 +1,11 @@
-from openpyxl import load_workbook
+from openpyxl import Workbook, load_workbook
 
 # Load the Excel file
-excel_file = "FoundHouse.xlsx"   # Path to the Excel file
-wb = load_workbook(excel_file)
 
-# Get the active worksheet
-ws = wb.active
+book = load_workbook("FoundHouse.xlsx")
+sheet = book.active
 
-for row in ws.iter_rows(values_only=True):
-    print(row)
+sheet_names = book.sheetnames
+print(sheet)
+print(sheet_names)
+print(sheet["A2"].value)
