@@ -23,16 +23,18 @@ column_C = sheet2["C"]
 sheet2["B5"].value = 'test'
 print(sheet2["B5"].value)
 
-"""
+
 for cell in column_C:
     print(f'{cell.value}\n')
-"""
+
 def search_in_workbook():
     """Search for a value in a specified column of a specified sheet."""
     sheet_name = input("Enter the sheet you want to search: ")
     column_letter = input("Enter the column you want to search: ").upper()
     target = input("Enter what you want to search for: ")
-    
+    if sheet_name and column_letter and target:
+        sheet = book[sheet_name]
+        column = sheet[column_letter]
 book.save("FoundHouse.xlsx")
 
 
