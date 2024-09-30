@@ -34,7 +34,12 @@ def search_in_workbook():
     target = input("Enter what you want to search for: ")
     if sheet_name and column_letter and target:
         sheet = book[sheet_name]
+        print("you've selected",sheet)
         column = sheet[column_letter]
+        print("you've selected",column)
+        print("you've selected",target)
+                
+search_in_workbook()
 book.save("FoundHouse.xlsx")
 
 
