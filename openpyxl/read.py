@@ -11,22 +11,23 @@ print(sheet) #print sheet 1
 print(sheet_names) #print all sheetname
 
 # Save the Excel file
-
-
 #search function(testing column B and C)
 
-def search():
-    sheet_select = input("Enter the sheet you want to search: ")
-    column = input("Enter the column you want to search: ").upper()
-    search = input("Enter what you want to search: ")
+
+#Grab a whole colum
+column_B = sheet2["B"]
+column_C = sheet2["C"]
+for cell in column_C:
+    print(f'{cell.value}\n')
+def search_in_workbook():
+    """Search for a value in a specified column of a specified sheet."""
+    sheet_name = input("Enter the sheet you want to search: ")
+    column_letter = input("Enter the column you want to search: ").upper()
+    target = input("Enter what you want to search for: ")
     
 
 book.save("FoundHouse.xlsx")
 
-
-def main():
-    
-    search()
 
 
     
