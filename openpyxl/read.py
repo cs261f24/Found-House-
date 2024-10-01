@@ -28,16 +28,15 @@ for cell in column_C:
     print(f'{cell.value}\n')
 
 def search_in_workbook():
-    """Search for a value in a specified column of a specified sheet."""
     sheet_name = input("Enter the sheet you want to search: ")
     column_letter = input("Enter the column you want to search: ").upper()
     target = input("Enter what you want to search for: ")
     if sheet_name and column_letter and target:
         sheet = book[sheet_name]
-        print("you've selected",sheet)
         column = sheet[column_letter]
-        print("you've selected",column)
-        print("you've selected",target)
+        for cell in column:
+            if cell.value == target:
+                print(f'Found {target} in cell {column_letter}{cell.row}')
                 
 search_in_workbook()
 book.save("FoundHouse.xlsx")
