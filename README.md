@@ -9,3 +9,7 @@
 9/24 changes from Frazee:
 - added links between Pet and Owner classes and methods to set/edit said links
 - created EXTREMELY bare-bones (lol) skeleton code for a Main class
+
+Search function
+Challenges
+-The only downside right now is that the search functi
