@@ -2,17 +2,17 @@ from openpyxl import Workbook, load_workbook
 import pandas as pd
 # Load the Excel file
 
-book = load_workbook("FoundHouse.xlsx") 
+book = load_workbook("FoundHouse.xlsx") #Load the excel file
 
 
-print(book.sheetnames)
+print(book.sheetnames) #Print all sheetnames
 """
 
 sheet1 = book["Yearly Stats"] #rename sheet1 to Yearly Stats
 sheet2 = book["Fake Data Served"] #rename sheet2 to Fake Data Served
 sheet3 = book["Fake Data Needs Help"] #rename sheet3 to Fake Data Needs Help
 sheet_names = book.sheetnames 
-print("This is", sheet1.title)
+print("This is", sheet1.title) #Print the sheet name
 print("This is ", sheet2.title)
 print("This is ", sheet3.title)
 print(sheet_names) #print all sheetname
@@ -22,7 +22,7 @@ print(sheet_names) #print all sheetname
 
 
 #Grab a whole column
-column_B = sheet2["B"]
+column_B = sheet2["B"] #Grab a whole column
 column_C = sheet2["C"]
 
 sheet2["B5"].value = 'test'
@@ -37,17 +37,17 @@ for cell in column_C:
 def search_in_workbook():
     sheet_name = input("Enter the sheet you want to search: ")
     column_letter = input("Enter the column you want to search: ")
-    target = input("Enter what you want to search for: ").lower()
+    target = input("Enter what you want to search for: ")
     if target.isdigit() and int(target) > 0:
         target = int(target)
-        print(f'Found {target} in cell {column_letter}{target}')
+        for cell in book[sheet_name][column_letter]: 
+            if cell.value == target:
+                print(f'Found {target} in cell {column_letter}{cell.row}') # Print the cell location for integer values
     else:
         if sheet_name and column_letter and target:
-            sheet = book[sheet_name] #Get the sheet from the workbook
-            column = sheet[column_letter] #Get the column from the sheet
-            for cell in column: #For each cell in the column and print the value
-                if cell.value == str(target).lower() or cell.value == target:
-                    print(f'Found {target} in cell {column_letter}{cell.row}') #Print the cell where the target was foundsearch_in_workbook()search_in_workbook()                
+            sheet = book[sheet_name] # Get the sheet from the workbook
+            column = sheet[column_letter] # Get the column from the sheet
+            for cell in column: # For each cell in the column and print the value
+                if cell.value == target:
+                    print(f'Found {target} in cell {column_letter}{cell.row}') # Print the cell where the target was found
 search_in_workbook()
-
-
