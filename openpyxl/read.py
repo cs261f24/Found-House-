@@ -34,26 +34,7 @@ for cell in column_C:
 """
 
 
-"""
 def search_in_workbook():
-    sheet_name = input("Enter the sheet you want to search: ")
-    column_letter = input("Enter the column you want to search: ")
-    target = input("Enter what you want to search for: ")
-    if target.isdigit() and int(target) > 0:
-        target = int(target)
-        print(f'Found {target} in cell {column_letter}{target}')
-    else:
-        if sheet_name and column_letter and target:
-            sheet = book[sheet_name] #Get the sheet from the workbook
-            column = sheet[column_letter] #Get the column from the sheet
-            for cell in column: #For each cell in the column and print the value
-                #if cell.value == str(target).lower() or cell.value == target:
-                if cell.value == target:
-                    print(f'Found {target} in cell {column_letter}{cell.row}') #Print the cell where the target was foundsearch_in_workbook()search_in_workbook()                
-search_in_workbook()
-"""
-
-def search_intgers():
     sheet_name = input("Enter the sheet you want to search: ")
     column_letter = input("Enter the column you want to search: ")
     target = input("Enter what you want to search for: ")
@@ -69,4 +50,4 @@ def search_intgers():
             for cell in column: # For each cell in the column and print the value
                 if cell.value == target:
                     print(f'Found {target} in cell {column_letter}{cell.row}') # Print the cell where the target was found
-search_intgers()
+search_in_workbook()
