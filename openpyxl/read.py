@@ -34,13 +34,16 @@ for cell in column_C:
 """
 
 
+
 def search_in_workbook():
     sheet_name = input("Enter the sheet you want to search: ")
     column_letter = input("Enter the column you want to search: ")
     target = input("Enter what you want to search for: ")
     if target.isdigit() and int(target) > 0:
         target = int(target)
-        for cell in book[sheet_name][column_letter]: 
+        sheet = book[sheet_name]
+        column = sheet[column_letter]
+        for cell in column: 
             if cell.value == target:
                 print(f'Found {target} in cell {column_letter}{cell.row}') # Print the cell location for integer values
     else:
