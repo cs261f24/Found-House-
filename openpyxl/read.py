@@ -4,7 +4,6 @@ import pandas as pd
 
 book = load_workbook("FoundHouse.xlsx") #Load the excel file
 
-
 print(book.sheetnames) #Print all sheetnames
 """
 
@@ -34,15 +33,15 @@ for cell in column_C:
 """
 
 
-
 def search_in_workbook():
     sheet_name = input("Enter the sheet you want to search: ")
     column_letter = input("Enter the column you want to search: ")
     target = input("Enter what you want to search for: ")
-    if target.isdigit() and int(target) > 0:
+    if target.isdigit() and int(target) > 0: 
         target = int(target)
-        sheet = book[sheet_name]
+        sheet = book[sheet_name] 
         column = sheet[column_letter]
+        
         for cell in column: 
             if cell.value == target:
                 print(f'Found {target} in cell {column_letter}{cell.row}') # Print the cell location for integer values
@@ -51,6 +50,9 @@ def search_in_workbook():
             sheet = book[sheet_name] # Get the sheet from the workbook
             column = sheet[column_letter] # Get the column from the sheet
             for cell in column: # For each cell in the column and print the value
-                if cell.value == target:
+                if str(cell.value).casefold().strip() in str(target.casefold()).strip() or cell.value == target:
                     print(f'Found {target} in cell {column_letter}{cell.row}') # Print the cell where the target was found
+                    
 search_in_workbook()
+
+
