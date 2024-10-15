@@ -30,11 +30,6 @@ print(sheet2["B5"].value)
 for cell in column_C:
     print(f'{cell.value}\n')
 """
-
-def option_search():
-    
-    pass
-"""
 def search_integers():
     sheet_name = input("Enter the sheet you want to search: ")
     column_letter = input("Enter the column you want to search: ")
@@ -47,30 +42,29 @@ def search_integers():
         for cell in column: 
             if cell.value == target:
                 print(f'Found {target} in cell {column_letter}{cell.row}') # Print the cell location for integer values
-search_integers()
-"""
-    
+
 def search_in_workbook():
     sheet_name = input("Enter the sheet you want to search: ")
     column_letter = input("Enter the column you want to search: ")
     target = input("Enter what you want to search for: ")
-    if target.isdigit() and int(target) > 0: 
-        target = int(target)
-        sheet = book[sheet_name] 
-        column = sheet[column_letter]
-        
-        for cell in column: 
-            if cell.value == target:
-                print(f'Found {target} in cell {column_letter}{cell.row}') # Print the cell location for integer values
-    else:
-        if sheet_name and column_letter and target:
-            sheet = book[sheet_name] # Get the sheet from the workbook
-            column = sheet[column_letter] # Get the column from the sheet
-            for cell in column: # For each cell in the column and print the value
-                if str(cell.value).casefold().strip() in str(target.casefold()).strip() or cell.value == target:
-                    print(f'Found {target} in cell {column_letter}{cell.row}') # Print the cell where the target was found
-                    row  = sheet[cell.row] # Get the row that the target was found in
-                    for cell in row: # For each cell in the row
-                        print(cell.value, end="\t") # Print the value and end kis used to make sure the values are printed in the same line 
-search_in_workbook() 
+    if sheet_name and column_letter and target:
+        sheet = book[sheet_name] # Get the sheet from the workbook
+        column = sheet[column_letter] # Get the column from the sheet
+        for cell in column: # For each cell in the column and print the value
+            if str(cell.value).casefold().strip() in str(target.casefold()).strip() or cell.value == target:
+                print(f'Found {target} in cell {column_letter}{cell.row}') # Print the cell where the target was found
+                row  = sheet[cell.row] # Get the row that the target was found in
+                for cell in row: # For each cell in the row
+                    print(cell.value, end="\t") # Print the value and end kis used to make sure the values are printed in the same line 
 
+def option_search():
+    print("Search for a target and print associated values\n")
+    print("Search a single target\n")
+    print("search an integer value\n")
+    option = input("Enter 1, 2, or 3: ")
+    if option == "1":
+        search_integers()
+    else:
+        search_in_workbook()
+
+option_search()
