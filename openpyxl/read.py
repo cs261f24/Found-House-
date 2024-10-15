@@ -52,7 +52,9 @@ def search_in_workbook():
             for cell in column: # For each cell in the column and print the value
                 if str(cell.value).casefold().strip() in str(target.casefold()).strip() or cell.value == target:
                     print(f'Found {target} in cell {column_letter}{cell.row}') # Print the cell where the target was found
-                    
+                    row  = sheet[cell.row] # Get the row that the target was found in
+                    for cell in row: # For each cell in the row
+                        print(cell.value) # Print the value
+                
 search_in_workbook()
-
 
