@@ -8,3 +8,5 @@ openpyxl/test.py
 openpyxl/venv/
 openpyxl/xl/
 venv/
+.venv/
+__pycache__/
