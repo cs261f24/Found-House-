@@ -8,3 +8,4 @@ openpyxl/test.py
 openpyxl/venv/
 openpyxl/xl/
 venv/
+.venv/
