@@ -8,3 +8,11 @@ openpyxl/test.py
 openpyxl/venv/
 openpyxl/xl/
 venv/
+venv/
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore Excel-related files
+xl/
+venv/
