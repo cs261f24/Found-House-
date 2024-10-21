@@ -62,14 +62,11 @@ def search_in_workbook():
 
     # Search for the target in the column and print the entire row
     for cell in column:
-        if str(cell.value).casefold().strip() == str(target.casefold()).strip() or cell.value == target:
+        if str(cell.value).casefold().strip() ==str(target.casefold()).strip() or cell.value == target:
             print(f'Found {target} in cell {column_letter}{cell.row}')  # Print the target cell location
             row = sheet[cell.row]  # Get the entire row where the target is found
             for cell in row:
                 print(cell.value, end="\t")  # Print all values in the row on the same line
-            #print()  # Move to the next line after the row
-            #return  # Stop after finding the first match
-
 # Function to allow the user to choose between two search options
 def option_search():
     print("Search for a target and print associated values by pressing 1\n")
