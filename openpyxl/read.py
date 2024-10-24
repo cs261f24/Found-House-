@@ -1,4 +1,5 @@
 from openpyxl import Workbook, load_workbook
+from openpyxl.utils import get_column_letter
 import pandas as pd
 # Load the Excel file
 
@@ -31,54 +32,55 @@ for cell in column_C:
     print(f'{cell.value}\n')
 """
 # Function to search and print a single value in a column
+# Function to search and print a single value in a column
 def search_single_value():
     sheet_name = input("Enter the sheet you want to search: ")
     column_letter = input("Enter the column you want to search: ")
     target = input("Enter what you want to search for: ")
 
-    # Convert target to integer if it is a positive number
-    if target.isdigit() and int(target) > 0: 
-        target = int(target)
-
     # Access the sheet and column
-    sheet = book[sheet_name]
-    column = sheet[column_letter]
-
-    # Search for the target in the column
-    for cell in column:
-        if str(cell.value).casefold().strip() == str(target.casefold()).strip() or cell.value == target:
-            print(f'Found {target} in cell {column_letter}{cell.row}')  # Print cell location if target is found
+    if sheet_name and column_letter and target:
+        sheet = book[sheet_name] # Access the sheet from the workbook
+        column = sheet[column_letter] #Access the column from the selected sheet
         
-
+        # check if the target is a number and is greater than 0
+        if target.isdigit() and int(target) > 0: 
+            target = int(target)
+        # Search for the target in the column
+        for cell in column:
+            if str(cell.value).casefold().strip() == str(target).casefold().strip() or cell.value == target:
+                print(f'Found {target} in cell {column_letter}{cell.row}')  # Print cell location if target is found
 # Function to search for a target and print the entire row associated with it
 def search_in_workbook():
+    filter_match_cell = [] #this is an empty list that will store all matching filter
     sheet_name = input("Enter the sheet you want to search: ")
-    column_letter = input("Enter the column you want to search: ")
-    target = input("Enter what you want to search for: ")
-
-    # Access the sheet and column
+    targets = input("Enter what you want to search for (separate multiple targets with commas): ").split(',')
+    # Access the sheet
     sheet = book[sheet_name]
-    column = sheet[column_letter]
-
-    # Search for the target in the column and print the entire row
-    for cell in column:
-        if str(cell.value).casefold().strip() ==str(target.casefold()).strip() or cell.value == target:
-            print(f'Found {target} in cell {column_letter}{cell.row}')  # Print the target cell location
-            row = sheet[cell.row]  # Get the entire row where the target is found
-            for cell in row:
-                print(cell.value, end="\t")  # Print all values in the row on the same line
-# Function to allow the user to choose between two search options
+    # Search for each target in all columns and print the entire row
+    for column in sheet.columns: 
+        for cell in column: 
+            for target in targets:
+                if str(cell.value).casefold().strip() == str(target.casefold()).strip() or cell.value == target:
+                    print(f'Found {target} in cell {cell.column_letter}{cell.row}')  # Print the target cell location
+                    row = sheet[cell.row]  # Get the entire row where the target is found
+                    for cell in row:
+                        print(cell.value, end="\t")  # Print all values in the row on the same line
 def option_search():
     print("Search for a target and print associated values by pressing 1\n")
     print("Search a single target by pressing 2\n")
-    option = input("Enter 1 or 2: ")
+    print("filter by pressing 3\n")
+    option = input("Enter 1 or 2 or 3: ")
 
     if option == "1":
         search_in_workbook()
     elif option == "2":
         search_single_value()
     else:
-        print("Invalid input. Please enter either 1 or 2.")
+        print("Invalid input. Please enter either 1, 2, or 3.")
 
 # Call the function to start the search
 option_search()
+
+
+
