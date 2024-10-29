@@ -1,31 +1,18 @@
 import pandas as pd
-import numpy as np
-# import openpyxl as op
-# from openpyxl import workbook
 from openpyxl import load_workbook
 
 # SETS DF TO READ THE SPREADSHEET
-df = pd.read_excel(''' input excel spreadsheet file here ''')
+df = pd.read_excel('''Insert Spreadsheet Here''')
 
 # REMOVES NAN FROM BLANK COLUMNS
 df = df.fillna('')
-df.dropna(inplace=True)
-df.to_excel(''' input excel spreadsheet file here ''', index=False)
-df1 = df.replace(np.nan, '', regex=True)
 
-# LOADS THE WORKBOOK IF SHEET IS USED
-excelBook = load_workbook(''' input spreadsheet file here ''')
+# LOADS THE WORKBOOK IF SHEET IS USED WITHOUT DELETING SHEETS
+excelBook = load_workbook('''Insert Spreadsheet Here''')
 
-writer = pd.ExcelWriter(''' input spreadsheet file here ''', engine='openpyxl')
-
-with pd.ExcelWriter(''' input spreadsheet file here ''') as writer:
-    # Saving my the excel spreadsheet as a base.
-    writer.book = excelBook
-    writer.sheets = dict((ws.title, ws) for ws in excelBook.worksheets)
-
-    # Saves the workbook
-    writer.save()
-
+# USES EXCELWRITER IN APPEND MODE WITH SHEET REPLACEMENT IF IT EXISTS
+with pd.ExcelWriter('''Insert Spreadsheet Here''', engine='openpyxl', mode='a', if_sheet_exists='replace') as writer:
+    df.to_excel(writer, index=False)
 
 # MAKES A DATAFRAME
 print("------------")
@@ -33,5 +20,3 @@ print("------------")
 # PRINTS WHOLE LIST USING TO_STRING
 print(df.to_string())
 print("------------")
-
-print(df)
