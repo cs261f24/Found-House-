@@ -18,5 +18,7 @@ with pd.ExcelWriter('''Insert Spreadsheet Here''', engine='openpyxl', mode='a', 
 print("------------")
 
 # PRINTS WHOLE LIST USING TO_STRING
+
 print(df.to_string())
+
 print("------------")
