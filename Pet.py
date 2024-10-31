@@ -14,11 +14,7 @@ excelBook = load_workbook('''Insert Spreadsheet Here''')
 with pd.ExcelWriter('''Insert Spreadsheet Here''', engine='openpyxl', mode='a', if_sheet_exists='replace') as writer:
     df.to_excel(writer, index=False)
 
-# MAKES A DATAFRAME
-print("------------")
-
 # PRINTS WHOLE LIST USING TO_STRING
-
+print("------------")
 print(df.to_string())
-
 print("------------")
