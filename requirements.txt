@@ -1,0 +1,6 @@
+openpyxl
+pandas
+pyqt5
+
+
+# to install, use the command pip install -r requirements.txt

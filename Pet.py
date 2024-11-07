@@ -1,3 +1,4 @@
+QewUpdatedPetFile
 import pandas as pd
 from openpyxl import load_workbook
 
@@ -18,3 +19,13 @@ with pd.ExcelWriter('''Insert Spreadsheet Here''', engine='openpyxl', mode='a', 
 print("------------")
 print(df.to_string())
 print("------------")
+
+class Pet:
+    def __init__(self):
+        self.attributes = []
+        self.link = None
+    def add_attribute(self, datum):
+        self.attributes.append(datum)
+
+    def link_to_owner(self, other):
+        self.link = other

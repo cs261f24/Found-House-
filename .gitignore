@@ -1,0 +1,13 @@
+.DS_Store
+openpyxl/.DS_Store
+openpyxl/FoundHousecopy.zip
+openpyxl/[Content_Types].xml
+openpyxl/_rels/
+openpyxl/docProps/
+openpyxl/test.py
+openpyxl/venv/
+openpyxl/xl/
+venv/
+.venv/
+__pycache__/
+.DS_Store
