@@ -9,6 +9,8 @@ def load_data():
     return pd.DataFrame(sheet)
 sheetdf = load_data()
 
+sheetdf.columns = sheetdf.columns.map(str)
+
 def add_column(sheetdf):
     #name of the column
     column_add = input("What new column would you like to add (if you dont want to add anything, type No) : ")
