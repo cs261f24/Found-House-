@@ -4,7 +4,7 @@ import pandas as pd
 # Load the Excel file
 
 book = load_workbook("FoundHouse.xlsx") #Load the excel file
-print(book.sheetnames) #Print all sheetnames
+# print(book.sheetnames) #Print all sheetnames
 """
 
 sheet1 = book["Yearly Stats"] #rename sheet1 to Yearly Stats
@@ -35,7 +35,7 @@ for cell in column_C:
 # Function to search and print a single value in a column
 def search_single_value():
     sheet_name = input("Enter the sheet you want to search: ")
-    column_letter = input("Enter the column you want to search: ")
+    column_letter = input("Enter the letter of the column you want to search in: ")
     target = input("Enter what you want to search for: ")
 
     # Access the sheet and column
@@ -50,6 +50,8 @@ def search_single_value():
         for cell in column:
             if str(cell.value).casefold().strip() == str(target).casefold().strip() or cell.value == target:
                 print(f'Found {target} in cell {column_letter}{cell.row}')  # Print cell location if target is found
+
+
 # Function to search for a target and print the entire row associated with it
 def search_in_workbook():
     filter_match_cell = [] #this is an empty list that will store all matching filter
@@ -66,11 +68,13 @@ def search_in_workbook():
                     row = sheet[cell.row]  # Get the entire row where the target is found
                     for cell in row:
                         print(cell.value, end="\t")  # Print all values in the row on the same line
+                    print("\n\n")
+
 def option_search():
-    print("Search for a target and print associated values by pressing 1\n")
-    print("Search a single target by pressing 2\n")
+    print("Search for a target and print all information about it by pressing 1\n")
+    print("Search for all instances of a single piece of information by pressing 2\n")
     print("filter by pressing 3\n")
-    option = input("Enter 1 or 2 or 3: ")
+    option = input("Enter 1, 2 or 3: ")
 
     if option == "1":
         search_in_workbook()
@@ -78,9 +82,3 @@ def option_search():
         search_single_value()
     else:
         print("Invalid input. Please enter either 1, 2, or 3.")
-
-# Call the function to start the search
-option_search()
-
-
-
