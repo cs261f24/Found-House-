@@ -1,6 +1,9 @@
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.filters import StringFilter
+
 import pandas as pd
+import read
 # Load the Excel file
 
 book = load_workbook("FoundHouse.xlsx") #Load the excel file
@@ -45,7 +48,7 @@ def search_single_value():
         
         # check if the target is a number and is greater than 0
         if target.isdigit() and int(target) > 0: 
-            target = int(target)
+            target = int(target) 
         # Search for the target in the column
         for cell in column:
             if str(cell.value).casefold().strip() == str(target).casefold().strip() or cell.value == target:
@@ -64,13 +67,12 @@ def search_in_workbook():
                 if str(cell.value).casefold().strip() == str(target.casefold()).strip() or cell.value == target:
                     print(f'Found {target} in cell {cell.column_letter}{cell.row}')  # Print the target cell location
                     row = sheet[cell.row]  # Get the entire row where the target is found
-                    for cell in row:
+                    for cell in row: #this will go through each cell in the row
                         print(cell.value, end="\t")  # Print all values in the row on the same line
 def option_search():
-    print("Search for a target and print associated values by pressing 1\n")
+    print("Filter by multiple values by pressing 1\n")
     print("Search a single target by pressing 2\n")
-    print("filter by pressing 3\n")
-    option = input("Enter 1 or 2 or 3: ")
+    option = input("Enter 1 or 2 to continue: ")
 
     if option == "1":
         search_in_workbook()
