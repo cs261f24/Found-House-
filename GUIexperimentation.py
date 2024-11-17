@@ -1,67 +1,61 @@
 import sys
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import *
-from openpyxl import Workbook, load_workbook
-from openpyxl.utils import get_column_letter
-import pandas as pd
+from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout, QLineEdit, QPushButton, QComboBox, QTableWidget, QTableWidgetItem
+import openpyxl
 
-class MainWindow(QMainWindow):
+class Main(QWidget):
     def __init__(self):
-        super(MainWindow, self).__init__()
+        super(Main, self).__init__()
 
-        self.setWindowTitle("Found House - GUI Test")
+        # Set up the layout
+        layout = QVBoxLayout()
+        self.setWindowTitle("Found House - For the Pets")
+        self.setGeometry(100, 100, 900, 600)  # Set the window size
+        self.setLayout(layout)
 
-        self.layout = QVBoxLayout()
+        #selecting the respectivie sheets
+        self.sheet_input = QComboBox()
+        sheets = openpyxl.load_workbook("FoundHouse.xlsx").sheetnames
+        self.sheet_input.addItems(sheets)
+        layout.addWidget(self.sheet_input)
 
-        opener = QLabel("This is a quick test that I threw together exploring the PyQt GUI's possibilities.")
-        font = opener.font()
-        font.setPointSize(20)
-        opener.setFont(font)
-        opener.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
+        #selecting animals 
+        self.animal_input_label = QLabel("Select Species:")
+        self.animal_input = QComboBox()
+        self.animal_input.addItems(["Dog", "Cat", "Others"])
+        layout.addWidget(self.animal_input_label)
+        layout.addWidget(self.animal_input)
 
-        closer = QLabel("It's SUPER bare-bones, I know.")
-        font = closer.font()
-        font.setPointSize(12)
-        closer.setFont(font)
-        closer.setAlignment(Qt.AlignBottom | Qt.AlignHCenter)
 
-        self.layout.addWidget(opener)
-        self.layout.addWidget(closer)
+        self.column_input = QLineEdit()
+        self.column_input.setPlaceholderText("Enter column name")
+        layout.addWidget(self.column_input)
 
-        self.load_data_button = QPushButton("Load Excel File")
-        self.load_data_button.clicked.connect(self.load_data)
-        self.layout.addWidget(self.load_data_button)
+        # Target search input field
+        self.target_input = QLineEdit()
+        self.target_input.setPlaceholderText("Enter what you want to search for:")
+        layout.addWidget(self.target_input)
 
-        self.data_label = QLabel("No data loaded")
-        self.layout.addWidget(self.data_label)
 
-        packer = QWidget()
-        packer.setLayout(self.layout)
-        self.setCentralWidget(packer)
+        self.single_search_button = QPushButton("Search Single Value") # Connect search button to function
+        layout.addWidget(self.single_search_button)
 
-    def load_data(self):
-        book = load_workbook("openpyxl/FoundHouse.xlsx")
-        sheet = book.active
-        print(book.sheetnames)
-        data = []
-        for row in sheet.rows:
-            data.append([cell.value for cell in row])
-        self.display_data(data)
 
-    def display_data(self, data):
-        text = ""
-        for row in data:
-            text += str(row) + "\n"
-        self.data_label.setText(text)
+        self.filter_button = QPushButton("Filter by Multiple values")
 
-def main():
-    app = QApplication(sys.argv)
-    window = MainWindow()
-    window.resize(2000,1000)
-    window.move(100,100)
-    window.show()
-    app.exec()
+        layout.addWidget(self.filter_button)
+
+        self.results_table = QTableWidget()
+        layout.addWidget(self.results_table)
+
+        try:
+            self.workbook = openpyxl.load_workbook("FoundHouse.xlsx")
+            self.sheet = self.workbook.active  # Use the active sheet
+        except FileNotFoundError:
+            print("Error: Excel file not found. Please ensure the file path is correct.")
+            sys.exit()
 
 if __name__ == '__main__':
-    main()
+    app = QApplication(sys.argv)
+    window = Main()
+    window.showMaximized()  # Maximizes the window
+    app.exec_()
