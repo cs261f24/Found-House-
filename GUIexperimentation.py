@@ -36,7 +36,7 @@ class Main(QWidget):
         layout.addWidget(self.target_input)
 
 
-        self.single_search_button = QPushButton("Search Single Value") # Connect search button to function
+        self.single_search_button = QPushButton("Search Single Value")
         layout.addWidget(self.single_search_button)
 
 
@@ -46,10 +46,24 @@ class Main(QWidget):
 
         self.results_table = QTableWidget()
         layout.addWidget(self.results_table)
+        
+        #add rows and columns
+        self.add_rows_button = QPushButton("Add Rows")
+        layout.addWidget(self.add_rows_button)
+
+        self.add_columns_button = QPushButton("Add Columns")
+        layout.addWidget(self.add_columns_button)
+
+        #remove rows and columns
+        self.remove_rows_button = QPushButton("Remove Rows")
+        layout.addWidget(self.remove_rows_button)
+
+        self.remove_columns_button = QPushButton("Remove Columns")
+        layout.addWidget(self.remove_columns_button)
 
         try:
             self.workbook = openpyxl.load_workbook("FoundHouse.xlsx")
-            self.sheet = self.workbook.active  # Use the active sheet
+            self.sheet = self.workbook.active  
         except FileNotFoundError:
             print("Error: Excel file not found. Please ensure the file path is correct.")
             sys.exit()
