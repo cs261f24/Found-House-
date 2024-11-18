@@ -1,6 +1,8 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout, QLineEdit, QPushButton, QComboBox, QTableWidget, QTableWidgetItem
-import openpyxl
+from openpyxl import load_workbook
+import pandas as pd
+
 
 class Main(QWidget):
     def __init__(self):
