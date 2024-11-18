@@ -1,46 +1,65 @@
-from openpyxl import Workbook, load_workbook
+import sys
+from PyQt5.QtWidgets import (
+    QApplication, QWidget, QVBoxLayout, QLabel, QComboBox, QLineEdit, QPushButton, QTextEdit
+)
+from openpyxl import load_workbook
 
-# Load the Excel file
+class PetDataFilterApp(QWidget):
+    def __init__(self):
+        super().__init__()
 
-book = load_workbook("FoundHouse.xlsx") 
+        # Load Excel Workbook
+        self.book = load_workbook("FoundHouse.xlsx")  # Update the path to the correct file
 
+        # GUI Window Setup
+        self.setWindowTitle("Pet Data Filter")
+        self.setGeometry(100, 100, 600, 400)
+        layout = QVBoxLayout()
 
-# print(book.sheetnames)
-"""
+        # Species selection
+        self.species_label = QLabel("Select Species:")
+        self.species_input = QComboBox()
+        self.species_input.addItems(["Dog", "Cat", "Others"])  # Predefined options
 
-sheet1 = book["Yearly Stats"] #rename sheet1 to Yearly Stats
-sheet2 = book["Fake Data Served"] #rename sheet2 to Fake Data Served
-sheet3 = book["Fake Data Needs Help"] #rename sheet3 to Fake Data Needs Help
-sheet_names = book.sheetnames 
-print("This is", sheet1.title)
-print("This is ", sheet2.title)
-print("This is ", sheet3.title)
-print(sheet_names) #print all sheetname
+        # Input fields for filtering
+        self.time_label = QLabel("Enter Time (e.g., days):")
+        self.time_input = QLineEdit()
 
-# Save the Excel file
-#search function(testing column B and C)
+        self.fixed_status_label = QLabel("Fixed Status (Yes/No):")
+        self.fixed_status_input = QComboBox()
+        self.fixed_status_input.addItems(["Yes", "No"])
 
+        self.single_digit_label = QLabel("Enter Single-Digit Field:")
+        self.single_digit_input = QLineEdit()
 
-#Grab a whole column
-column_B = sheet2["B"]
-column_C = sheet2["C"]
+        # Buttons for filtering options (no actions connected)
+        self.search_time_button = QPushButton("Search by Time Returned to Owner")
+        self.compare_fixed_button = QPushButton("Compare Fixed vs. Non-Fixed")
+        self.filter_single_digit_button = QPushButton("Filter by Single-Digit Field")
 
-sheet2["B5"].value = 'test'
-print(sheet2["B5"].value)
+        # Output area
+        self.result_display = QTextEdit()
+        self.result_display.setReadOnly(True)
 
-#Grab a single cell and print the value inside of it
-for cell in column_C:
-    print(f'{cell.value}\n')
-"""
+        # Add widgets to layout
+        layout.addWidget(self.species_label)
+        layout.addWidget(self.species_input)
+        layout.addWidget(self.time_label)
+        layout.addWidget(self.time_input)
+        layout.addWidget(self.fixed_status_label)
+        layout.addWidget(self.fixed_status_input)
+        layout.addWidget(self.single_digit_label)
+        layout.addWidget(self.single_digit_input)
+        layout.addWidget(self.search_time_button)
+        layout.addWidget(self.compare_fixed_button)
+        layout.addWidget(self.filter_single_digit_button)
+        layout.addWidget(self.result_display)
 
+        self.setLayout(layout)
 
-def search_in_workbook():
-    sheet_name = input("Enter the sheet you want to search: ")
-    column_letter = input("Enter the column you want to search: ").upper()
-    target = input("Enter what you want to search for: ")
-    if sheet_name and column_letter and target:
-        sheet = book[sheet_name] #Get the sheet from the workbook
-        column = sheet[column_letter] #Get the column from the sheet
-        for cell in column:
-            if cell.value == target:
-                print(f'Found {target} in cell {column_letter}{cell.row}') #Print the cell where the target was foundsearch_in_workbook()search_in_workbook()                
+# Run the application
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = PetDataFilterApp()
+    window.show()
+    sys.exit(app.exec_())

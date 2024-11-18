@@ -1,32 +1,61 @@
 import sys
+from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout, QLineEdit, QPushButton, QComboBox, QTableWidget, QTableWidgetItem
+import openpyxl
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import *
-
-class MainWindow(QMainWindow):
+class Main(QWidget):
     def __init__(self):
-        super(MainWindow, self).__init__()
+        super(Main, self).__init__()
 
-        self.setWindowTitle("PyQt Demonstration")
-
+        # Set up the layout
         layout = QVBoxLayout()
+        self.setWindowTitle("Found House - For the Pets")
+        self.setGeometry(100, 100, 900, 600)  # Set the window size
+        self.setLayout(layout)
 
-        opener = QLabel("This is a quick test that I threw together exploring the PyQt GUI's possibilities.")
-        font = opener.font()
-        font.setPointSize(20)
-        opener.setFont(font)
-        opener.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
+        #selecting the respectivie sheets
+        self.sheet_input = QComboBox()
+        sheets = openpyxl.load_workbook("FoundHouse.xlsx").sheetnames
+        self.sheet_input.addItems(sheets)
+        layout.addWidget(self.sheet_input)
 
-        closer = QLabel("It's SUPER bare-bones, I know.")
-        font = closer.font()
-        font.setPointSize(12)
-        closer.setFont(font)
-        closer.setAlignment(Qt.AlignBottom | Qt.AlignHCenter)
+        #selecting animals 
+        self.animal_input_label = QLabel("Select Species:")
+        self.animal_input = QComboBox()
+        self.animal_input.addItems(["Dog", "Cat", "Others"])
+        layout.addWidget(self.animal_input_label)
+        layout.addWidget(self.animal_input)
 
-        layout.addWidget(opener)
-        layout.addWidget(closer)
 
-        packer = QWidget()
-        packer.setLayout(layout)
-        self.setCentralWidget(packer)
+        self.column_input = QLineEdit()
+        self.column_input.setPlaceholderText("Enter column name")
+        layout.addWidget(self.column_input)
+
+        # Target search input field
+        self.target_input = QLineEdit()
+        self.target_input.setPlaceholderText("Enter what you want to search for:")
+        layout.addWidget(self.target_input)
+
+
+        self.single_search_button = QPushButton("Search Single Value") # Connect search button to function
+        layout.addWidget(self.single_search_button)
+
+
+        self.filter_button = QPushButton("Filter by Multiple values")
+
+        layout.addWidget(self.filter_button)
+
+        self.results_table = QTableWidget()
+        layout.addWidget(self.results_table)
+
+        try:
+            self.workbook = openpyxl.load_workbook("FoundHouse.xlsx")
+            self.sheet = self.workbook.active  # Use the active sheet
+        except FileNotFoundError:
+            print("Error: Excel file not found. Please ensure the file path is correct.")
+            sys.exit()
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = Main()
+    window.showMaximized()  # Maximizes the window
+    app.exec_()
