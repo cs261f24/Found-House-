@@ -89,23 +89,4 @@ def save_to_excel(sheetdf):
     with pd.ExcelWriter(output_file, engine="openpyxl", mode='w') as writer:  # 'w' mode to overwrite the entire file
         sheetdf.to_excel(writer, index=False)
 
-
-
-# keeps asking the user if they would like to edit the file, until the user types "exit"
-while True:  
-    action = input ("Would you like to add or remove a column or row? Type 'add/remove column' or 'add/remove row' or 'exit' to quit: ")
-    if action == "add column":
-        sheetdf = add_column(sheetdf)
-    elif action == "remove column":
-        sheetdf = remove_column(sheetdf)
-    elif action == "add row":
-        sheetdf = add_row(sheetdf)
-    elif action == "remove row":
-        sheetdf = remove_row(sheetdf)
-    elif action == "exit":
-        break 
-    else: 
-        print ("action not found")
-
-print("The finals dataframe is : ")
-print (sheetdf)
+# Zigmond's

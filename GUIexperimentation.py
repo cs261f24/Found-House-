@@ -3,10 +3,11 @@ from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout, QLineEdi
 from openpyxl import load_workbook
 import pandas as pd
 from read import search_single_value, search_in_workbook
+import rows
 
-class Main(QWidget):
+class ourGUI(QWidget):
     def __init__(self):
-        super(Main, self).__init__()
+        super(ourGUI, self).__init__()
 
         # Set up the layout
         layout = QVBoxLayout()
@@ -49,16 +50,20 @@ class Main(QWidget):
 
         # Add rows and columns
         self.add_rows_button = QPushButton("Add Rows")
+        self.add_rows_button.clicked.connect(self.add_rows_button_clicked)
         layout.addWidget(self.add_rows_button)
 
         self.add_columns_button = QPushButton("Add Columns")
+        self.add_columns_button.clicked.connect(self.add_columns_button_clicked)
         layout.addWidget(self.add_columns_button)
 
         # Remove rows and columns
         self.remove_rows_button = QPushButton("Remove Rows")
+        self.remove_rows_button.clicked.connect(self.remove_rows_button_clicked)
         layout.addWidget(self.remove_rows_button)
 
         self.remove_columns_button = QPushButton("Remove Columns")
+        self.remove_columns_button.clicked.connect(self.remove_columns_button_clicked)
         layout.addWidget(self.remove_columns_button)
 
         # Result label
@@ -90,8 +95,17 @@ class Main(QWidget):
             self.result_label.setText(result)
         else:
             self.result_label.setText("not found")
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = Main()
-    window.showMaximized()  # Maximizes the window
-    app.exec_()
+    
+    def add_rows_button_clicked(self):
+        pass
+
+    def add_columns_button_clicked(self):
+        pass
+
+    def remove_rows_button_clicked(self):
+        pass
+
+    def remove_columns_button_clicked(self):
+        pass
+
+# Kadima's

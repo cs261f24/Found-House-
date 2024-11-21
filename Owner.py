@@ -11,7 +11,5 @@ class Owner:
 
     def link_to_pet(self, other):
         self.link = other
-        
-        
-        
-    
+
+# Frazee's

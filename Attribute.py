@@ -23,3 +23,5 @@ class Attribute:
         else:
             print("Just an alert: " + self.name + " has no value.")
             return None
+
+# Frazee's
