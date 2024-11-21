@@ -35,14 +35,5 @@ def search_in_workbook(sheet_name, targets):
                         result += str(cell.value) + "\t"  # Print all values in the row on the same line
                     result += "\n\n"
     return result
-def option_search():
-    print("Filter by multiple values by pressing 1\n")
-    print("Search a single target by pressing 2\n")
-    option = input("Enter 1 or 2 to continue: ")
 
-    if option == "1":
-        search_in_workbook()
-    elif option == "2":
-        search_single_value()
-    else:
-        print("Invalid input. Please enter either 1, 2, or 3.")
+# Kadima's
