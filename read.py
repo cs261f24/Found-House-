@@ -1,9 +1,8 @@
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.filters import StringFilter
-
 import pandas as pd
-
+from datetime import datetime
 # Load the Excel file
 book = load_workbook("FoundHouse.xlsx")  # Load the excel file
 
@@ -35,6 +34,17 @@ def search_in_workbook(sheet_name, targets):
                         result += str(cell.value) + "\t"  # Print all values in the row on the same line
                     result += "\n\n"
     return result
+
+
+def age_calculation(start_date,current_date):
+    age = current_date.year - start_date.year - ((current_date.month, current_date.day) < (start_date.month, start_date.day))
+    return age
+
+def track_age():
+    sheet_name = "Fake Data Served"
+    sheet = book[sheet_name]
+
+
 def option_search():
     print("Filter by multiple values by pressing 1\n")
     print("Search a single target by pressing 2\n")
