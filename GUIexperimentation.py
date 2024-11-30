@@ -114,14 +114,10 @@ class Main(QWidget):
             self.result_label.setText("not found")
             
     def add_rows_button_clicked(self):
-        sheet_name = self.sheet_input.currentText()
-        num_rows = int(input("Enter the number of rows to add: "))
-        add_row(sheet_name, num_rows)
+        pass
         
     def add_columns_button_clicked(self):
-        sheet_name = self.sheet_input.currentText()
-        num_columns = int(input("Enter the number of columns to add: "))
-        add_column(sheet_name, num_columns)
+        pass
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = Main()
