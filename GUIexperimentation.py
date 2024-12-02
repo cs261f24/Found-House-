@@ -29,7 +29,7 @@ class ourGUI(QWidget):
         layout.addWidget(self.animal_input)
 
         self.column_input = QLineEdit()
-        self.column_input.setPlaceholderText("Enter column name")
+        self.column_input.setPlaceholderText("Enter the letter name of the column you wish to search in:")
         layout.addWidget(self.column_input)
 
         # Target search input field
@@ -48,7 +48,7 @@ class ourGUI(QWidget):
         self.results_table = QTableWidget()
         layout.addWidget(self.results_table)
 
-        # Add rows and columns
+        # Add rows and columns buttons
         self.add_rows_button = QPushButton("Add Rows")
         self.add_rows_button.clicked.connect(self.add_rows_button_clicked)
         layout.addWidget(self.add_rows_button)
@@ -57,10 +57,18 @@ class ourGUI(QWidget):
         self.add_columns_button.clicked.connect(self.add_columns_button_clicked)
         layout.addWidget(self.add_columns_button)
 
-        # Remove rows and columns
+        # Remove rows and columns buttons
+        self.row_input = QLineEdit()
+        self.row_input.setPlaceholderText("If you want to remove a row, type its number here:")
+        layout.addWidget(self.row_input)
+
         self.remove_rows_button = QPushButton("Remove Rows")
         self.remove_rows_button.clicked.connect(self.remove_rows_button_clicked)
         layout.addWidget(self.remove_rows_button)
+
+        self.col_input = QLineEdit()
+        self.col_input.setPlaceholderText("If you want to remove a column, type its letter here:")
+        layout.addWidget(self.col_input)
 
         self.remove_columns_button = QPushButton("Remove Columns")
         self.remove_columns_button.clicked.connect(self.remove_columns_button_clicked)
@@ -106,6 +114,9 @@ class ourGUI(QWidget):
         pass
 
     def remove_columns_button_clicked(self):
-        pass
+        sheet_name = self.sheet_input.currentText()
+        letter = self.col_input.text()
+        result = rows.remove_column(sheet_name, letter)
+        self.result_label.setText(result)
 
 # Kadima's

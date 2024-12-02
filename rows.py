@@ -2,10 +2,10 @@ import pandas as pd
 from openpyxl import Workbook, load_workbook
 
 
-output_file = "FoundHouse.xlsx"
+book = "FoundHouse.xlsx"
 
 def load_data():
-    sheet = pd.read_excel(output_file)
+    sheet = pd.read_excel(book)
     return pd.DataFrame(sheet)
 sheetdf = load_data()
 
@@ -30,25 +30,19 @@ def add_column(sheetdf):
         print ("The new column " + column_add + " was saved to the dataframe")
     return sheetdf
 
-def remove_column(sheetdf):
-    #prints the columns available to remove 
-    print ("The columns in the dataframe are: ")
-    print (sheetdf.columns.tolist())
-    #asks the user which column to remove
-    column_remove = (input("What column would you like to take out (if you dont want to add anything, type no : "))
-    column_remove = column_remove.strip()
-    if column_remove.lower() == "no":
-        print ("you decided not to remove a column")
-        return sheetdf
-    #checks if the column exists in the dataframe 
-    elif column_remove in sheetdf.columns:
-        del sheetdf[column_remove]
-        print ("The column " + column_remove + " was found and removed")
-    #saves it to the excel file
-        save_to_excel(sheetdf)
+def remove_column(sheetsname, column_remove):
+    #checks if the column exists in the dataframe
+    if sheetsname and column_remove:
+        sheet = book[sheetsname]
+        if column_remove:
+            column = sheet[column_remove]
+            del sheet[column]
+            message = "The column " + column_remove + " was found and removed"
+            #saves it to the excel file
+            save_to_excel(sheet)
     else:
-        print ("The column was not found")
-    return sheetdf
+        message = "The column was not found"
+    return message
 
 
 def add_row(sheetdf):
