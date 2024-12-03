@@ -36,10 +36,9 @@ def check_conditions(cell_value, operator, value):
         return False
 
 def search_in_workbook(sheet_name, targets):
-    # Parse the targets to extract conditions
-    conditions = []
+    conditions = [] #to store the conditions
     for target in targets: 
-        match = re.match(r'(\w+)\s*([<>=]+)\s*(\w+)', target)  
+        match = re.match(r'(\w+)\s*([<>=]+)\s*(\w+)', target) 
         if match is not None:
             column, operator, value = match.groups()
             conditions.append((column, operator, value))
@@ -67,15 +66,15 @@ def search_in_workbook(sheet_name, targets):
                         break #get out of the loop, no need to check the rest when a match is found
                 else:
                     # If the condition is a single value, check if it's present in the row
-                    if value in row_values:
+                    if value in row_values: #make sure that the value is in the row
                         match_any_conditions = True
                         found_target = value
                         break
             if match_any_conditions == True:
                 result += f"Found{found_target} in cell {cell.column_letter}{cell.row}\n"
-                row = sheet[cell.row]
-                for cell in row:
-                    result += str(cell.value) + "\t"
+                row = sheet[cell.row] #get the row
+                for cell in row: #loop through the row
+                    result += str(cell.value) + "\t" #print the value of the cell
                 result += "\n"
                     
     return result

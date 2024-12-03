@@ -107,7 +107,9 @@ class Main(QWidget):
             "Name", "Type", "Animal ID", "Pet Name", "Phone",
             "Start Date", "Housed", "Age", "Purpose", "CurrentAge", "Days"
         ])
+        self.input_table.horizontalHeader().setStretchLastSection(True)
         main_layout.addWidget(self.input_table)
+        
 
         # Text edit area to display search results
         self.result_label = QTextEdit()
@@ -182,8 +184,10 @@ class Main(QWidget):
   
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    app.setStyleSheet("QWidget { font-size: 18px; }")  # Apply to all widgets
     window = Main()
     window.show()
     sys.exit(app.exec_())
+
 
 
