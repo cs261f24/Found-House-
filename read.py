@@ -7,20 +7,30 @@ import re
 # Load the Excel file
 book = load_workbook("FoundHouse.xlsx")  # Load the excel file
 def search_single_value(sheet_name, column_header, target):
-    
+    result = ""
     if sheet_name and column_header and target:
         sheet = book[sheet_name]
         headers = []
-        for cell in sheet[2]:  # Read the first row to get column headers
+        for cell in sheet[2] or sheet[0]:  # Read the first row to get column headers
             headers.append(cell.value)
-        column_letter = chr(ord('A') + headers.index(column_header))  # Map column header to letter
+        if column_header.isalpha() and len(column_header) == 1: # Check if the column header is a single letter 
+            column_letter = column_header.upper()
+        else:
+            # Map column header to letter
+            column_letter = chr(ord('A') + headers.index(column_header))
+        
         column = sheet[column_letter] 
         if target.isdigit() and int(target) > 0:
             target = int(target)
         for cell in column:
             if str(cell.value).casefold().strip() == str(target).casefold().strip() or cell.value == target:
-                return f'Found {target} in cell {column_letter}{cell.row}'  # Return the cell location if target is found
-    return None
+                return f'Found {target} in cell {column_letter}{cell.row}'
+            row = sheet[cell.row] #get the row
+            for cell in row: #loop through the row
+                result += str(cell.value) + "\t" #print the value of the cell
+            result += "\n"
+            # Return the cell location if target is found
+    return result
 def check_conditions(cell_value, operator, value):
     if operator == '=':
         return str(cell_value).casefold().strip() == str(value).casefold().strip()
@@ -67,11 +77,11 @@ def search_in_workbook(sheet_name, targets):
                 else:
                     # If the condition is a single value, check if it's present in the row
                     if value in row_values: #make sure that the value is in the row
-                        match_any_conditions = True
-                        found_target = value
+                        match_any_conditions = True 
+                        found_target = value 
                         break
             if match_any_conditions == True:
-                result += f"Found{found_target} in cell {cell.column_letter}{cell.row}\n"
+                result += f"Found {found_target} in cell {cell.column_letter}{cell.row}\n"
                 row = sheet[cell.row] #get the row
                 for cell in row: #loop through the row
                     result += str(cell.value) + "\t" #print the value of the cell
