@@ -86,5 +86,4 @@ def search_in_workbook(sheet_name, targets):
                 for cell in row: #loop through the row
                     result += str(cell.value) + "\t" #print the value of the cell
                 result += "\n"
-                    
     return result
