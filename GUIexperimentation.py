@@ -1,4 +1,5 @@
 import sys
+import pandas as pd
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QApplication, QLabel, QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, 
@@ -126,6 +127,27 @@ class Main(QWidget):
             print("Error: Excel file not found. Please ensure the file path is correct.")
             sys.exit()  # Exit the application if the file is not found
 
+        #count animals
+        self.count_animals_button = QPushButton("Count Animals")
+        self.count_animals_button.clicked.connect(self.count_animals_button_clicked)
+        main_layout.addWidget(self.count_animals_button)
+
+
+    def count_animals_button_clicked(self):
+        sheet_name = self.sheet_input.currentText()
+        sheetdf = pd.read_excel("FoundHouse.xlsx", sheet_name=sheet_name)
+        animal_column = sheetdf.iloc[:, 1]  
+        total_animals = len(animal_column) - 1  
+        animal_count = animal_column.value_counts() 
+
+        # Display the results 
+        result_text = f"The total number of animals in the shelter is: {total_animals}\n\n"
+        result_text += "The number of each type of animal is:\n"
+        for animal, count in animal_count.items():
+            result_text += f"{animal}: {count}\n"
+        
+        self.result_label.setText(result_text) 
+
     def search_single_value_button_clicked(self):
         sheet_name = self.sheet_input.currentText()
         column_letter = self.column_input.text()
@@ -163,6 +185,5 @@ if __name__ == '__main__':
     window = Main()
     window.show()
     sys.exit(app.exec_())
-
 
 
