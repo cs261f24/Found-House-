@@ -18,22 +18,34 @@ class Main(QWidget):
         self.setGeometry(100, 100, 1200, 800)  # Window size and position
 
         # Create the main vertical layout
+        """
+        QVBoxLayout is a class in PyQt5 that is used to create a vertical layout. The layout is used to arrange widgets in a vertical manner.
+        """
         main_layout = QVBoxLayout(self)
 
         # Create a horizontal layout for add/remove controls
+        """
+        QHBoxLayout is a class in PyQt5 that is used to create a horizontal layout. The layout is used to arrange widgets in a horizontal manner.
+        """
         add_remove_controls = QHBoxLayout()
 
         # Input field for entering row values or column name
-        self.input_field = QLineEdit()
-        self.input_field.setPlaceholderText("Enter row values (comma-separated) or column name")
-        add_remove_controls.addWidget(self.input_field)
+        """
+        QLineEdit is a class in PyQt5 that is used to create a single-line input field. The input field can be used to enter text, numbers, etc.
+        """
+        self.input_field = QLineEdit() #this will create the input field
+        self.input_field.setPlaceholderText("Enter row values (comma-separated) or column name") #this will create the placeholder to serve as a text for the input field
+        add_remove_controls.addWidget(self.input_field) #this will add the input field to the add/remove controls layout
 
         # Button to add rows
-        self.add_rows_button = QPushButton("Add Rows")
-        add_remove_controls.addWidget(self.add_rows_button)
+        """
+        QPushButton is how to create a button in PyQt5
+        """
+        self.add_rows_button = QPushButton("Add Rows") #create the add rows button
+        add_remove_controls.addWidget(self.add_rows_button) 
 
         # Button to add columns
-        self.add_columns_button = QPushButton("Add Columns")
+        self.add_columns_button = QPushButton("Add Columns") 
         add_remove_controls.addWidget(self.add_columns_button)
 
         # Button to remove rows
@@ -48,26 +60,33 @@ class Main(QWidget):
         main_layout.addLayout(add_remove_controls)
 
         # Create a splitter to divide the main layout into left and right sections
-        main_splitter = QSplitter()
+        """
+        QSplitter is from PyQt5 and it allows us to divide the main layout into left and right sections.
+        """
+        main_splitter = QSplitter() #this is the horizontal division that will allow the left and right to be side by side
         main_splitter.setOrientation(Qt.Horizontal)  # Horizontal division
 
         # Left Panel setup
-        left_panel = QFrame()
-        left_layout = QVBoxLayout()
-        left_panel.setLayout(left_layout)
+
+        left_panel = QFrame() #this will create the left panel 
+        left_layout = QVBoxLayout() #this will create the layout for the left panel
+        left_panel.setLayout(left_layout) #this will set the layout for the left panel
 
         # Dropdown to select Excel sheets
+        """
+        QComboBox is from PyQt5 and it helps with creating dropdown menus. The dropdown menu is used to select an item from a list of items.
+        """
         self.sheet_input = QComboBox()
         sheets = load_workbook("FoundHouse.xlsx").sheetnames  # Load sheet names from Excel
         self.sheet_input.addItems(sheets)
         left_layout.addWidget(self.sheet_input)
 
         # Dropdown to select animal species
-        self.animal_input_label = QLabel("Select Species:")
-        self.animal_input = QComboBox()
-        self.animal_input.addItems(["Dog", "Cat", "Others"])
-        left_layout.addWidget(self.animal_input_label)
-        left_layout.addWidget(self.animal_input)
+        self.animal_input_label = QLabel("Select Species:") 
+        self.animal_input = QComboBox() #this will create the dropdown menu for the animal species
+        self.animal_input.addItems(["Dog", "Cat", "Others"]) # Add options to the dropdown menu
+        left_layout.addWidget(self.animal_input_label) #this will add the label to the left layout
+        left_layout.addWidget(self.animal_input) #this will add the dropdown menu to the left layout
 
         # Input field for specifying the column name
         self.column_input = QLineEdit()
@@ -106,8 +125,8 @@ class Main(QWidget):
         self.input_table.setHorizontalHeaderLabels([
             "Name", "Type", "Animal ID", "Pet Name", "Phone",
             "Start Date", "Housed", "Age", "Purpose", "CurrentAge", "Days"
-        ])
-        self.input_table.horizontalHeader().setStretchLastSection(True)
+        ]) #this is just setting the column headers(the important thing we want to track)
+        self.input_table.horizontalHeader().setStretchLastSection(True) #just allows you to stretch the column headers
         main_layout.addWidget(self.input_table)
         
 
@@ -151,9 +170,9 @@ class Main(QWidget):
         self.result_label.setText(result_text) 
 
     def search_single_value_button_clicked(self):
-        sheet_name = self.sheet_input.currentText()
-        column_letter = self.column_input.text()
-        target = self.target_input.text()
+        sheet_name = self.sheet_input.currentText() #get the sheet name from the dropdown
+        column_letter = self.column_input.text() #get the column name from the input
+        target = self.target_input.text() #get the search target from the input
         result = search_single_value(sheet_name, column_letter, target)
         if result:
             self.result_label.setText(result)
